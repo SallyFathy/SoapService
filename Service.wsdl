@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <definitions> must be the root of the WSDL document -->
+<definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://codeproject.com/webservices/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://codeproject.com/webservices/">
+	<types>
+		<schema elementFormDefault="qualified" targetNamespace="http://codeproject.com/webservices/">
+			<element name="SendMessage">
+				<complexType>
+					<sequence>
+						<element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+						<element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+						<element minOccurs="0" maxOccurs="1" name="MessageText" type="s:string" />
+						<element minOccurs="0" maxOccurs="1" name="ClientMessageID" type="s:string" />
+						<element minOccurs="0" maxOccurs="1" name="Flashing" type="s:string" />
+						<element minOccurs="0" maxOccurs="1" name="SenderName" type="s:string" />
+						<element minOccurs="0" maxOccurs="1" name="Acknowledgement" type="s:string" />
+						<element minOccurs="0" maxOccurs="1" name="DeliveryTime" type="s:string" />
+						<element minOccurs="0" maxOccurs="1" name="MessageType" type="s:string" />
+						<element minOccurs="0" maxOccurs="1" name="ValidityPeriod" type="s:string" />
+						<element minOccurs="0" maxOccurs="1" name="Recipients" type="s:string" />
+						<element minOccurs="0" maxOccurs="1" name="DlrUrl" type="s:string" />
+						<element minOccurs="0" maxOccurs="1" name="udh" type="s:string" />
+					</sequence>
+				</complexType>
+			</element>
+			<element name="SendMessageResponse">
+				<complexType>
+					<sequence>
+						<element minOccurs="0" maxOccurs="1" name="SendMessageResult" type="tns:ArrayOfResponse" />
+					</sequence>
+				</complexType>
+			</element>
+			<complexType name="ArrayOfResponse">
+				<sequence>
+					<element minOccurs="0" maxOccurs="unbounded" name="Response" nillable="true" type="tns:Response" />
+				</sequence>
+			</complexType>
+			<complexType name="Response">
+				<sequence>
+					<element minOccurs="1" maxOccurs="1" name="RequestId" nillable="true" type="s:long" />
+					<element minOccurs="1" maxOccurs="1" name="ErrorId" type="s:int" />
+					<element minOccurs="0" maxOccurs="1" name="ErrorText" type="s:string" />
+					<element minOccurs="1" maxOccurs="1" name="IsSent" type="s:boolean" />
+					<element minOccurs="0" maxOccurs="1" name="ResponseText" type="s:string" />
+					<element minOccurs="0" maxOccurs="1" name="ClientMessageId" type="s:string" />
+					<element minOccurs="1" maxOccurs="1" name="Split" type="s:int" />
+					<element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+				</sequence>
+			</complexType>
+			<element name="ArrayOfResponse" nillable="true" type="tns:ArrayOfResponse" />
+		</schema>
+	</types>
+	<message name="SendMessageSoapIn">
+		<part name="parameters" element="tns:SendMessage" />
+	</message>
+	<message name="SendMessageSoapOut">
+		<part name="parameters" element="tns:SendMessageResponse" />
+	</message>
+	<message name="SendMessageHttpGetIn">
+		<part name="UserName" type="s:string" />
+		<part name="Password" type="s:string" />
+		<part name="MessageText" type="s:string" />
+		<part name="ClientMessageID" type="s:string" />
+		<part name="Flashing" type="s:string" />
+		<part name="SenderName" type="s:string" />
+		<part name="Acknowledgement" type="s:string" />
+		<part name="DeliveryTime" type="s:string" />
+		<part name="MessageType" type="s:string" />
+		<part name="ValidityPeriod" type="s:string" />
+		<part name="Recipients" type="s:string" />
+		<part name="DlrUrl" type="s:string" />
+		<part name="udh" type="s:string" />
+	</message>
+	<message name="SendMessageHttpGetOut">
+		<part name="Body" element="tns:ArrayOfResponse" />
+	</message>
+	<message name="SendMessageHttpPostIn">
+		<part name="UserName" type="s:string" />
+		<part name="Password" type="s:string" />
+		<part name="MessageText" type="s:string" />
+		<part name="ClientMessageID" type="s:string" />
+		<part name="Flashing" type="s:string" />
+		<part name="SenderName" type="s:string" />
+		<part name="Acknowledgement" type="s:string" />
+		<part name="DeliveryTime" type="s:string" />
+		<part name="MessageType" type="s:string" />
+		<part name="ValidityPeriod" type="s:string" />
+		<part name="Recipients" type="s:string" />
+		<part name="DlrUrl" type="s:string" />
+		<part name="udh" type="s:string" />
+	</message>
+	<message name="SendMessageHttpPostOut">
+		<part name="Body" element="tns:ArrayOfResponse" />
+	</message>
+	<portType name="SendServiceSoap">
+		<operation name="SendMessage">
+			<input message="tns:SendMessageSoapIn" />
+			<output message="tns:SendMessageSoapOut" />
+		</operation>
+	</portType>
+	<portType name="SendServiceHttpGet">
+		<operation name="SendMessage">
+			<input message="tns:SendMessageHttpGetIn" />
+			<output message="tns:SendMessageHttpGetOut" />
+		</operation>
+	</portType>
+	<portType name="SendServiceHttpPost">
+		<operation name="SendMessage">
+			<input message="tns:SendMessageHttpPostIn" />
+			<output message="tns:SendMessageHttpPostOut" />
+		</operation>
+	</portType>
+	<binding name="SendServiceSoap" type="tns:SendServiceSoap">
+		<binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<operation name="SendMessage">
+			<operation soapAction="http://codeproject.com/webservices/SendMessage" style="document" />
+			<input>
+				<body use="literal" />
+			</input>
+			<output>
+				<body use="literal" />
+			</output>
+		</operation>
+	</binding>
+	<binding name="SendServiceSoap12" type="tns:SendServiceSoap">
+		<binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<operation name="SendMessage">
+			<operation soapAction="http://codeproject.com/webservices/SendMessage" style="document" />
+			<input>
+				<body use="literal" />
+			</input>
+			<output>
+				<body use="literal" />
+			</output>
+		</operation>
+	</binding>
+	<binding name="SendServiceHttpGet" type="tns:SendServiceHttpGet">
+		<binding verb="GET" />
+		<operation name="SendMessage">
+			<operation location="/SendMessage" />
+			<input>
+				<urlEncoded />
+			</input>
+			<output>
+				<mimeXml part="Body" />
+			</output>
+		</operation>
+	</binding>
+	<binding name="SendServiceHttpPost" type="tns:SendServiceHttpPost">
+		<binding verb="POST" />
+		<operation name="SendMessage">
+			<operation location="/SendMessage" />
+			<input>
+				<content type="application/x-www-form-urlencoded" />
+			</input>
+			<output>
+				<mimeXml part="Body" />
+			</output>
+		</operation>
+	</binding>
+	<service name="SendService">
+		<port name="SendServiceSoap" binding="tns:SendServiceSoap">
+			<address location="http://localhost:3000/SendService" />
+		</port>
+		<port name="SendServiceSoap12" binding="tns:SendServiceSoap12">
+			<address location="http://localhost:3000/SendService" />
+		</port>
+		<port name="SendServiceHttpGet" binding="tns:SendServiceHttpGet">
+			<address location="http://localhost:3000/SendService" />
+		</port>
+		<port name="SendServiceHttpPost" binding="tns:SendServiceHttpPost">
+			<address location="http://localhost:3000/SendService" />
+		</port>
+	</service>
+</definitions>
